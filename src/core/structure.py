@@ -308,7 +308,7 @@ class ModelInput:
         else:
             distance_df = distance
 
-        distance_matrix_raw = distance_df.pivot('Source', 'Destination', 'Distance(M)')
+        distance_matrix_raw = distance_df.pivot(index='Source', columns='Destination', values='Distance(M)')
         assert(distance_matrix_raw.shape[0] == distance_matrix_raw.shape[1])
 
         distance_matrix = distance_matrix_raw.copy()

@@ -98,7 +98,7 @@ class Model:
         self.solver.parameters.max_time_in_seconds = max_time_in_seconds # Solver will stop after this number of seconds
 
         printer = SolutionPrinter()
-        status = self.solver.SolveWithSolutionCallback(self.model, printer)
+        status = self.solver.Solve(self.model, printer)
 
         # Limit the number of search
         # status = self.solver.SearchForAllSolutions(self.model, logger.infoer)
