@@ -69,7 +69,7 @@ class Model:
         """
         pass
 
-    def solve(self, max_time_in_seconds=120):
+    def solve(self, max_time_in_seconds=60):
         """Function that solves the optimization problem.
 
         Args:
@@ -93,12 +93,12 @@ class Model:
             def solution_count(self):
                 return self.__solution_count
 
-        # self.solver.parameters.num_search_workers = max(1, multiprocessing.cpu_count()-1)
-        self.solver.parameters.num_search_workers = 1
+        self.solver.parameters.num_search_workers = max(1, multiprocessing.cpu_count()-1)
+        # self.solver.parameters.num_search_workers = 1
         self.solver.parameters.max_time_in_seconds = max_time_in_seconds # Solver will stop after this number of seconds
 
         printer = SolutionPrinter()
-        status = self.solver.SolveWithSolutionCallback(self.model, printer)
+        status = self.solver.Solve(self.model, printer)
 
         # Limit the number of search
         # status = self.solver.SearchForAllSolutions(self.model, logger.infoer)

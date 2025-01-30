@@ -52,7 +52,7 @@ class PipelineTest(unittest.TestCase):
         model_input_reduced = ModelInput()
         model_input_reduced.initInputFromFile(model_input_reduced_file, distance_file)
 
-        max_package_num = 30
+        max_package_num = 5
         model_input_list = partitioner.partition(model_input_reduced, max_package_num)
         logger.info(f"Number of partitions: {len(model_input_list)}")
 
