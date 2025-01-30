@@ -169,8 +169,14 @@ class ModelInput:
             package.item_id = row['Item_ID']
             package.source = row['Source']
             package.destination = row['Destination']
-            package.available_time = int(datetime.timestamp(datetime.strptime(row['Available_Time'], '%Y-%m-%d %H:%M:%S')))
-            package.deadline = int(datetime.timestamp(datetime.strptime(row['Deadline'], '%Y-%m-%d %H:%M:%S')))
+            try:
+                package.available_time = int(datetime.timestamp(datetime.strptime(row['Available_Time'], '%Y-%m-%d %H:%M:%S')))
+            except ValueError:
+                package.available_time = int(datetime.timestamp(datetime.strptime(row['Available_Time'], '%Y-%m-%d')))
+            try:
+                package.deadline = int(datetime.timestamp(datetime.strptime(row['Deadline'], '%Y-%m-%d %H:%M:%S')))
+            except ValueError:
+                package.deadline = int(datetime.timestamp(datetime.strptime(row['Deadline'], '%Y-%m-%d')))
             package.danger_type = row['Danger_Type']
             package.area = row['Area']
             package.weight = row['Weight']
