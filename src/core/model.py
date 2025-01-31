@@ -69,7 +69,7 @@ class Model:
         """
         pass
 
-    def solve(self, max_time_in_seconds=60):
+    def solve(self, max_time_in_seconds=120):
         """Function that solves the optimization problem.
 
         Args:
@@ -114,6 +114,7 @@ class Model:
             self.validateInput()
             
             logger.info(f"Number of conflicts: {self.solver.NumConflicts()}")
+            raise Exception("The problem was proven infeasible.")
 
         elif status == cp_model.MODEL_INVALID:
             logger.info("The given model didn't pass the validation step.")
@@ -121,9 +122,17 @@ class Model:
             self.validateInput()
             
             logger.info(f"Number of conflicts: {self.solver.NumConflicts()}")
+            raise Exception("The given model didn't pass the validation step.")
 
         elif status == cp_model.UNKNOWN:
             logger.info("The status of the model is unknown because a search limit was reached.")
+
+            raise Exception("The status of the model is unknown because a search limit was reached.")
+
+        else:
+            logger.info("The model is not solved.")
+            logger.info(f"Number of conflicts: {self.solver.NumConflicts()}")
+            raise Exception("The model is not solved.")
 
     def setModelInput(self, model_input):
         """Function that sets the model input object.

@@ -14,7 +14,7 @@ class PipelineTest(unittest.TestCase):
 
     def test_pipeline(self):
 
-        order_file = os.path.join(work_dir, "../../sample_data/order_small.csv")
+        order_file = os.path.join(work_dir, "../../sample_data/order_large.csv")
         distance_file = os.path.join(work_dir, "../../sample_data/distance.csv")
 
         tmp_folder = os.path.join(work_dir, "../../tmp")
@@ -52,7 +52,7 @@ class PipelineTest(unittest.TestCase):
         model_input_reduced = ModelInput()
         model_input_reduced.initInputFromFile(model_input_reduced_file, distance_file)
 
-        max_package_num = 5
+        max_package_num = 30
         model_input_list = partitioner.partition(model_input_reduced, max_package_num)
         logger.info(f"Number of partitions: {len(model_input_list)}")
 
@@ -77,7 +77,7 @@ class PipelineTest(unittest.TestCase):
             model.createVariables()
             model.setConstraints()
             model.setObjective(objective="Cost")
-            model.solve()
+            model.solve(max_time_in_seconds=60)
 
             model_result = model.getModelResult()
             
