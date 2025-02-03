@@ -33,8 +33,8 @@ def main():
     model_input_origin.initInputFromFile(args.model_input, args.distance)
 
     ## Reduce process
-    model_input_reduced, model_result_partial = reducer.reduce1(model_input_origin)
-    #model_input_reduced, model_result_partial = reducer.reduce2(model_input_origin)
+    # model_input_reduced, model_result_partial = reducer.reduce1(model_input_origin)
+    model_input_reduced, model_result_partial = reducer.reduce2(model_input_origin)
 
     ## Save the results
 

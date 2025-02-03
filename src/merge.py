@@ -2,6 +2,7 @@
 # Licensed under the MIT license.
 
 import argparse
+import glob
 import os
 
 from core.structure import *
@@ -22,7 +23,16 @@ def main():
     merger = ResultMerger()
 
     partial_result_df = pd.read_csv(args.model_result_partial + "/model_result_partial.csv")
-    result_list = pd.read_csv(args.model_result_list + '/parallel_run_step.txt', header=None, delimiter=' ')
+
+    result_file_list = glob.glob(os.path.join(args.model_result_list, '*.txt'))
+
+    # Read each result file and append to the list
+    result_list = []
+    for result_file in result_file_list:
+        result_list.append(pd.read_csv(result_file, header=None, delimiter=' '))
+
+    # concatenate the list of results
+    result_list = pd.concat(result_list)
     result_list.columns = partial_result_df.columns
 
     results = [partial_result_df, result_list]
