@@ -69,7 +69,7 @@ class Model:
         """
         pass
 
-    def solve(self, max_time_in_seconds=120):
+    def solve(self, max_time_in_seconds=60):
         """Function that solves the optimization problem.
 
         Args:
